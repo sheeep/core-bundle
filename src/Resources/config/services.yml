@@ -119,6 +119,11 @@ services:
             - "%contao.image.bypass_cache%"
             - "%contao.image.imagine_options%"
 
+    contao.form_extension:
+        class: Contao\CoreBundle\Form\Extension\BackendFormExtension
+        tags:
+            - { name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\TextType }
+
     contao.framework:
         class: Contao\CoreBundle\Framework\ContaoFramework
         arguments:

@@ -1,0 +1,70 @@
+{% extends "form_div_layout.html.twig" %}
+
+{%- block form -%}
+    {{ form_start(form) }}
+    <div class="tl_formbody_edit">
+        {{- form_widget(form) -}}
+    </div>
+    {{ form_end(form) }}
+{%- endblock form -%}
+
+{%- block form_row -%}
+    <div class="widget w50">
+        {{- form_label(form) -}}
+        {{- form_widget(form) -}}
+        {{- form_errors(form) -}}
+    </div>
+{%- endblock form_row -%}
+
+{%- block form_label -%}
+    {% if label is not same as(false) -%}
+        {% if not compound -%}
+            {% set label_attr = label_attr|merge({'for': id}) %}
+        {%- endif -%}
+        {% if required -%}
+            {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}
+        {%- endif -%}
+        {% if label is empty -%}
+            {%- if label_format is not empty -%}
+                {% set label = label_format|replace({
+                '%name%': name,
+                '%id%': id,
+                }) %}
+            {%- else -%}
+                {% set label = name|humanize %}
+            {%- endif -%}
+        {%- endif -%}
+
+        <h3>
+            <label{% if label_attr %}{% with { attr: label_attr } %}{{ block('attributes') }}{% endwith %}{% endif %}>
+                {% if required %}<span class="invisible">Pflichtfeld</span>{% endif %}
+                {{ translation_domain is same as(false) ? label : label|trans({}, translation_domain) }}
+                {% if required %}<span class="mandatory">*</span>{% endif %}
+            </label>
+        </h3>
+    {%- endif -%}
+{%- endblock form_label -%}
+
+{%- block form_widget_simple -%}
+    {%- set type = type|default('text') -%}
+    {%- set attr = attr|merge({'class': (attr.class|default('') ~ ' tl_' ~ type)|trim}) -%}
+
+    <input type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+{%- endblock form_widget_simple -%}
+
+{%- block textarea_widget -%}
+    {%- set attr = attr|merge({'class': (attr.class|default('') ~ ' tl_textarea')|trim}) -%}
+    <textarea {{ block('widget_attributes') }}>{{ value }}</textarea>
+{%- endblock textarea_widget -%}
+
+{%- block submit_widget -%}
+    <div class="clr"></div>
+    <div class="tl_formbody_submit">
+        <div class="tl_submit_container">
+            {%- set type = type|default('submit') -%}
+            {%- set attr = attr|merge({'class': (attr.class|default('') ~ ' tl_submit')|trim}) -%}
+
+            {{ block('button_widget') }}
+        </div>
+    </div>
+{%- endblock submit_widget -%}
