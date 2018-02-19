@@ -28,12 +28,18 @@ class MakeServicesPublicPassTest extends TestCase
 
     public function testMakesTheServicesPublic(): void
     {
+        $services = ['security.firewall.map', 'security.logout_url_generator'];
         $container = new ContainerBuilder();
-        $container->setDefinition('security.firewall.map', new Definition());
+
+        foreach ($services as $service) {
+            $container->setDefinition($service, new Definition());
+        }
 
         $pass = new MakeServicesPublicPass();
         $pass->process($container);
 
-        $this->assertTrue($container->getDefinition('security.firewall.map')->isPublic());
+        foreach ($services as $service) {
+            $this->assertTrue($container->getDefinition($service)->isPublic());
+        }
     }
 }

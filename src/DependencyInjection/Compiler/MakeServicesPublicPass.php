@@ -25,8 +25,14 @@ class MakeServicesPublicPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container): void
     {
-        if ($container->hasDefinition('security.firewall.map')) {
-            $container->getDefinition('security.firewall.map')->setPublic(true);
+        $services = ['security.firewall.map', 'security.logout_url_generator'];
+
+        foreach ($services as $service) {
+            if (!$container->hasDefinition($service)) {
+                continue;
+            }
+
+            $container->getDefinition($service)->setPublic(true);
         }
     }
 }
