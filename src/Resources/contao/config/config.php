@@ -94,6 +94,10 @@ $GLOBALS['BE_MOD'] = array
 		(
 			'tables'                  => array('tl_log')
 		),
+		'oauth_resource_owners' => array
+		(
+			'tables'                  => array('tl_oauth_resource_owner')
+		),
 		'settings' => array
 		(
 			'tables'                  => array('tl_settings')
