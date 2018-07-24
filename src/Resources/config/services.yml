@@ -1,3 +1,6 @@
+parameters:
+    hwi_oauth.resource_ownermap.class: Contao\CoreBundle\Security\Oauth\ResourceOwnerMap
+
 services:
     _instanceof:
         Contao\CoreBundle\Framework\FrameworkAwareInterface:
