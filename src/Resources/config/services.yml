@@ -1,6 +1,3 @@
-parameters:
-    hwi_oauth.resource_ownermap.class: Contao\CoreBundle\Security\Oauth\ResourceOwnerMap
-
 services:
     _instanceof:
         Contao\CoreBundle\Framework\FrameworkAwareInterface:
@@ -494,3 +491,16 @@ services:
             - "@contao.routing.scope_matcher"
         tags:
             - { name: twig.extension }
+
+    contao.oauth.dynamic_resource_owner_factory:
+        class: Contao\CoreBundle\Security\Oauth\DynamicResourceOwnerFactory
+        arguments:
+            - "@service_container"
+            - "@security.http_utils"
+            - "@hwi_oauth.http_client"
+            - "@hwi_oauth.storage.session"
+
+    contao.oauth.dynamic_resource_owner_map:
+        class: Contao\CoreBundle\Security\Oauth\DynamicResourceOwnerMap
+        arguments:
+            - "@contao.oauth.dynamic_resource_owner_factory"

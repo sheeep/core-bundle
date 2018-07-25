@@ -33,6 +33,7 @@ class MakeServicesPublicPass implements CompilerPassInterface
             'security.authentication.trust_resolver',
             'security.firewall.map',
             'security.logout_url_generator',
+            'hwi_oauth.templating.helper.oauth'
         ];
 
         foreach ($services as $service) {

@@ -62,6 +62,18 @@
               <a href="<?= $this->route('contao_root') ?>" class="footer_preview"><?= $this->feLink ?> ›</a>
             </div>
           </div>
+
+          <hr>
+
+          <?php $helper = \System::getContainer()->get('hwi_oauth.templating.helper.oauth'); ?>
+          <ul>
+            <?php dump($helper->getResourceOwners()); ?>
+            <?php foreach ($helper->getResourceOwners() as $owner): ?>
+            <li>
+              <a href="<?= $helper->getLoginUrl($owner); ?>"><?= $owner; ?></a>
+            </li>
+            <?php endforeach; ?>
+          </ul>
         </form>
       </main>
       <?= $this->messages ?>
